@@ -1,0 +1,36 @@
+{
+  "name": "quartet",
+  "version": "0.0.0",
+  "description": "depression screener assessment",
+  "scripts": {
+    "start": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sokolikp/quartet.git"
+  },
+  "author": "Paul Sokolik",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^2.1.4",
+    "react": "^0.13.3",
+    "react-tools": "^0.13.3",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "browserify": "^10.2.6",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-html-replace": "^1.5.1",
+    "gulp-jshint": "^1.11.2",
+    "gulp-nodemon": "^2.0.3",
+    "gulp-react": "^3.0.1",
+    "gulp-shell": "^0.4.2",
+    "gulp-streamify": "0.0.5",
+    "gulp-uglify": "^1.2.0",
+    "gulp-watch": "^4.3.2",
+    "reactify": "^1.1.1",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.2.3"
+  }
+}
