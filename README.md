@@ -4,9 +4,11 @@ Coding exercise prepared for Quartet Health.
 
 ##To Begin:
 
+```
 npm install -g node (if not already installed)
 npm install
 npm start
+```
 
 ##The Project
 
