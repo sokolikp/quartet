@@ -1,6 +1,4 @@
 var gulp = require('gulp');
-var uglify = require('gulp-uglify');
-var htmlreplace = require('gulp-html-replace');
 var jshint = require('gulp-jshint');
 var source = require('vinyl-source-stream');
 var browserify = require('browserify');
@@ -11,15 +9,21 @@ var concat = require('gulp-concat');
 var nodemon = require('gulp-nodemon');
 
 var path = {
-  ALL: ['client/app/*.js', 'client/collections/*.js', 'client/models/*.js', 'client/views/*.js'],
-  HTML: 'client/index.html',
-  CSS: 'client/styles/style.css',
-  MINIFIED_OUT: 'build.min.js',
+  ALL: ['src/js/views/*.jsx', 'src/js/*.js'],
+  HTML: 'src/index.html',
+  CSS: 'src/styles/style.css',
   OUT: 'build.js',
   DEST: 'dist',
-  DEST_BUILD: 'dist/build',
   DEST_SRC: 'dist/src',
-  ENTRY_POINT: './client/app/app.js'
+  ENTRY_POINT: './src/js/app.js'
+};
+
+browserify: {
+  options: {
+    browserifyOptions: {
+     debug: true
+    }
+  }
 };
 
 gulp.task('lint', function () {
@@ -38,27 +42,24 @@ gulp.task('copy-css', function(){
     .pipe(gulp.dest(path.DEST_SRC));
 });
 
+gulp.task('transform', function() {
+  // Browserify/bundle the JS.
+  browserify({
+    entries: path.ENTRY_POINT,
+    debug: true
+  })
+  .transform(reactify)
+  .bundle()
+  .pipe(source('build.js'))
+  .pipe(gulp.dest(path.DEST_SRC));
+});
+ 
+// Rerun tasks whenever a file changes.
 gulp.task('watch', function() {
   gulp.watch(path.HTML, ['copy-index']);
   gulp.watch(path.CSS, ['copy-css']);
   gulp.watch(path.ALL, ['lint']);
-
-  var watcher  = watchify(browserify({
-    entries: [path.ENTRY_POINT],
-    transform: [reactify],
-    debug: true,
-    cache: {}, packageCache: {}, fullPaths: true
-  }));
-
-  return watcher.on('update', function () {
-    watcher.bundle()
-      .pipe(source(path.OUT))
-      .pipe(gulp.dest(path.DEST_SRC))
-      console.log('Updated');
-  })
-    .bundle()
-    .pipe(source(path.OUT))
-    .pipe(gulp.dest(path.DEST_SRC));
+  gulp.watch(path.ALL, ['transform']);
 });
 
 gulp.task('demon', function () {
@@ -76,25 +77,4 @@ gulp.task('demon', function () {
     });
 });
 
-gulp.task('build', function(){
-  browserify({
-    entries: [path.ENTRY_POINT],
-    transform: [reactify],
-  })
-    .bundle()
-    .pipe(source(path.MINIFIED_OUT))
-    .pipe(streamify(uglify(path.MINIFIED_OUT)))
-    .pipe(gulp.dest(path.DEST_BUILD));
-});
-
-gulp.task('replaceHTML', function(){
-  gulp.src(path.HTML)
-    .pipe(htmlreplace({
-      'js': 'build/' + path.MINIFIED_OUT
-    }))
-    .pipe(gulp.dest(path.DEST));
-});
-
-gulp.task('production', ['replaceHTML', 'build']);
-
-gulp.task('default', ['copy-index', 'copy-css', 'demon', 'watch']);
+gulp.task('default', ['watch', 'copy-index', 'copy-css', 'transform', 'demon']);

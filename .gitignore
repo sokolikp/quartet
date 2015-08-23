@@ -1,6 +1,9 @@
 # Mac system files
 *.DS_Store
 
+# logs
+npm-debug.log
+
 # Compiled Dirs
 dist/
 
