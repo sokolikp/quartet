@@ -2,10 +2,9 @@
 
 Coding exercise prepared for Quartet Health.
 
-##To Begin:
+##Getting Started
 
 ```
-npm install -g node (if not already installed)
 npm install
 npm start
 ```
@@ -27,3 +26,7 @@ Implementation Notes - You can find the 9 questions and the scoring legend here:
 ```
 
 2) As a patient, if I score moderate depression or higher, I want to be presented with three options for therapists that I can select from.
+
+##Philosophy
+
+This app is built using Gulp, Browserify, and React. Only require dependencies where necessary. Strive for clean, modular, and short code. Long files and functions should be abstracted into smaller components. There should be a single render invocation, and therefore a single point of entry. App.js servers as the main entry point to this application.
