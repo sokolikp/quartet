@@ -4,10 +4,14 @@ Coding exercise prepared for Quartet Health.
 
 ##Getting Started
 
+Install [node](https://nodejs.org/) if you don't already have it
+
 ```
 npm install
 npm start
 ```
+
+This application is hosted on port 8000
 
 ##The Project
 
