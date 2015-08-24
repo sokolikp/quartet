@@ -9,7 +9,7 @@ var concat = require('gulp-concat');
 var nodemon = require('gulp-nodemon');
 
 var path = {
-  ALL: ['src/js/views/*.jsx', 'src/js/*.js'],
+  ALL: ['src/js/components/*.jsx', 'src/js/*.js'],
   HTML: 'src/index.html',
   CSS: 'src/styles/style.css',
   OUT: 'build.js',

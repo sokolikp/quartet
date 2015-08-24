@@ -7,15 +7,17 @@ var Answers = React.createClass({
 
   getInitialState: function() {
     return { 
-      score: 0
+      score: 0,
+      selected: false
     }
   },
   
   handleClick: function(score) {
     this.setState({
-      score: score
+      score: score,
+      selected: true
     });
-    this.props.updateScore(score);
+    this.props.updateScore(score, this.props.index);
   },
 
   render: function() {
@@ -25,10 +27,14 @@ var Answers = React.createClass({
     var answerList = Object.keys(answers).map(function(answer, index) {
       classes = classNames({
         'answer': true,
-        'answer-selected': context.state.score === index
+        'answer-selected': context.state.score === index && context.state.selected
       });
-      return <li className={classes} onClick={context.handleClick.bind(context, index)} key={index}>{answers[answer]}</li>
-      // return <Answer updateScore={context.updateScore} key={index} answer={answers[answer]} />
+      return <li 
+                className={classes} 
+                onClick={context.handleClick.bind(context, index)} 
+                key={index}>
+                {answers[answer]}
+             </li>
     });
 
     return (

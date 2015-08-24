@@ -18,19 +18,27 @@ var Total = React.createClass({
     } else if(score < 15) {
       diagnosis = 'Moderate Depression';
     } else if(score < 20) {
-      diagnosis = 'Moderately Sever Depression';
+      diagnosis = 'Moderately Severe Depression';
     } else {
       diagnosis = 'Severe Depression';
     } 
     return diagnosis;
   },
 
+  handleSubmit: function(e) {
+    e.preventDefault();
+    this.props.handleSubmit();
+  },
+
   render: function() {
     return (
       <div>
-        <div>Total Score: <span>{this.props.score}</span>/27</div>
-        <div>{this.getDepressionDiagnosis}</div>
-        <div>Depression Severity: 0-4 none, 5-9 mild, 10-14 moderate, 15-19 moderately severe, 20-27 severe.</div>
+        <form type="submit">
+          <div>Total Score: <span>{this.props.score}</span>/27</div>
+          <div>Your diagnosis is: <strong>{this.getDepressionDiagnosis()}</strong></div>
+          <div className='well severity-key'>Depression Severity: 0-4 none, 5-9 mild, 10-14 moderate, 15-19 moderately severe, 20-27 severe.</div>
+          <button className="btn btn-default" onClick={this.handleSubmit}>Submit</button> 
+        </form>
       </div>
     );
    

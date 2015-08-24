@@ -9,7 +9,6 @@
 h5 {
   padding: 10px;
   background-color: #f8f5ec;
-  /*border: 1px solid #e1e1e8;*/
 }
 
 .question {
@@ -17,7 +16,6 @@ h5 {
 }
 
 .answer-list {
-  /*margin-left: 5px;*/
   padding: 3px;
   background-color: #f7f7f9;
   border: 1px solid #e1e1e8;
@@ -36,6 +34,20 @@ h5 {
 
 .answer:hover {
   background-color: #e1e1e8;
+  cursor: default;
   border: 1px solid lightgrey;
+}
+
+.answer:hover.answer-selected {
+  border: 1px solid black;
+}
+
+.doctor {
+  margin-left: 5px;
+}
+
+.severity-key {
+  margin: 10px 0px;
+  padding: 8px 5px;
 }
 

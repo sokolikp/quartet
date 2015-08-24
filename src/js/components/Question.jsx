@@ -9,19 +9,15 @@ var Question = React.createClass({
     }
   },
 
-  updateScore: function(score) {
-    // this.setState({
-    //   score: score
-    // });
-    console.log('my key is:', this.props.key, score);
-  },
-
   render: function() {
 
     return (
-      <div>
+      <div className='row'>
         <div className='question'>{this.props.index+1 + '.'} {this.props.question}</div>
-        <Answers updateScore={this.updateScore} answers={this.props.answers}/>
+        <Answers 
+          updateScore={this.props.updateScore} 
+          answers={this.props.answers} 
+          index={this.props.index} />
       </div>
     );
    
