@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var source = require('vinyl-source-stream');
 var browserify = require('browserify');
+var shell = require('gulp-shell')
 var watchify = require('watchify');
 var reactify = require('reactify');
 var streamify = require('gulp-streamify');
@@ -13,17 +14,9 @@ var path = {
   HTML: 'src/index.html',
   CSS: 'src/styles/style.css',
   OUT: 'build.js',
-  DEST: 'dist',
-  DEST_SRC: 'dist/src',
+  DEST: 'public',
+  DEST_SRC: 'public/src',
   ENTRY_POINT: './src/js/app.js'
-};
-
-browserify: {
-  options: {
-    browserifyOptions: {
-     debug: true
-    }
-  }
 };
 
 gulp.task('lint', function () {
@@ -62,19 +55,23 @@ gulp.task('watch', function() {
   gulp.watch(path.ALL, ['transform']);
 });
 
-gulp.task('demon', function () {
-  nodemon({
-    script: 'server/server.js',
-    ext: 'js',
-    env: {
-      'NODE_ENV': 'development'
-    }
-  })
-    .on('start', ['lint'])
-    .on('change', ['lint'])
-    .on('restart', function () {
-      console.log('restarted!');
-    });
-});
+gulp.task('serve', shell.task([
+  'ecstatic -p 8080 public'
+]));
 
-gulp.task('default', ['watch', 'copy-index', 'copy-css', 'transform', 'demon']);
+// gulp.task('demon', function () {
+//   nodemon({
+//     script: 'server/server.js',
+//     ext: 'js',
+//     env: {
+//       'NODE_ENV': 'development'
+//     }
+//   })
+//     .on('start', ['lint'])
+//     .on('change', ['lint'])
+//     .on('restart', function () {
+//       console.log('restarted!');
+//     });
+// });
+
+gulp.task('default', ['watch', 'copy-index', 'copy-css', 'transform', 'serve']);

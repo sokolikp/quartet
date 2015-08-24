@@ -7,6 +7,6 @@ npm-debug.log
 # Compiled Dirs
 dist/
 
-# Dependency directorys
+# Dependency directories
 node_modules/
 bower_components/
