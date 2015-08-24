@@ -2,11 +2,15 @@ var React = require('react');
 
 var Results = React.createClass({
 
+  //keep track of whether radio buttons have been clicked
+  //and do not allow user to submit until true.
+  //Also keep track of whether form was submitted
+  //to display "thank you" screen
   getInitialState: function() {
     return { 
       submitted: false,
       selected: false
-    }
+    };
   },
 
   handleSelection: function(e) {
@@ -39,6 +43,10 @@ var Results = React.createClass({
     return diagnosis;
   },
 
+  //3 scenarios:
+  // -form submitted (show thank you)
+  // -depression score >= 10: show therapist options w/ submit form
+  // -depression score < 10: show score and thank you message
   render: function() {
     if(this.state.submitted) {
       return (

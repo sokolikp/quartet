@@ -56,9 +56,12 @@ gulp.task('watch', function() {
 });
 
 gulp.task('serve', shell.task([
-  'ecstatic -p 8080 public'
+  'ecstatic -p 8000 public'
 ]));
 
+//*****************************
+//Helpful if serving with node
+//*****************************
 // gulp.task('demon', function () {
 //   nodemon({
 //     script: 'server/server.js',

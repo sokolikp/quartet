@@ -1,13 +1,7 @@
 var React = require('react');
 
 var Total = React.createClass({
-
-  getInitialState: function() {
-    return { 
-
-    }
-  },
-
+  
   getDepressionDiagnosis: function() {
     var score = this.props.score;
     var diagnosis;
@@ -30,6 +24,9 @@ var Total = React.createClass({
     this.props.handleSubmit();
   },
 
+  //Display user survey results at the end of the page
+  //with submit button to see next screen. Only enable
+  //submit button when all selections are made
   render: function() {
     return (
       <div>
@@ -37,7 +34,13 @@ var Total = React.createClass({
           <div>Total Score: <span>{this.props.score}</span>/27</div>
           <div>Your diagnosis is: <strong>{this.getDepressionDiagnosis()}</strong></div>
           <div className='well severity-key'>Depression Severity: 0-4 none, 5-9 mild, 10-14 moderate, 15-19 moderately severe, 20-27 severe.</div>
-          <button className="btn btn-default" onClick={this.handleSubmit}>Submit</button> 
+          {this.props.selected ? 
+          <button className="btn btn-default" onClick={this.handleSubmit}>Submit</button> :
+          <div>
+            <button className="btn btn-default" disabled onClick={this.handleSubmit}>Submit</button>
+            <div>Make all selections to submit.</div>
+          </div>}
+
         </form>
       </div>
     );

@@ -6,21 +6,27 @@ var Results = require('./Results.jsx');
 
 var AppView = React.createClass({
 
+  //AppView has access to all survey info and passes to children 
   getInitialState: function() {
     return { 
       questions: SurveyInfo.questions,
       answers: SurveyInfo.answers,
       score: 0,
-      showResults: false
-    }
+      showResults: false,
+      allSelected: false
+    };
   },
 
-  updateScore: function(score) {
+  //Keep track of overall survey score; this is called 
+  //from child Questions when a user clicks on a response
+  updateScore: function(score, allSelected) {
     this.setState({
-      score: score
+      score: score,
+      allSelected: allSelected
     });
   },
 
+  //handle submit events to render results screen
   handleSubmit: function() {
     this.setState({
       showResults: true
@@ -43,7 +49,7 @@ var AppView = React.createClass({
           updateScore={this.updateScore} 
           questions={this.state.questions} 
           answers={this.state.answers} />
-        <Total score={this.state.score} handleSubmit={this.handleSubmit} />
+        <Total score={this.state.score} handleSubmit={this.handleSubmit} selected={this.state.allSelected} />
       </div>
     );
 
